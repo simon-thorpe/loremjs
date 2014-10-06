@@ -120,7 +120,9 @@ var Lorem;
     Lorem.prototype.createClone = function(element) {
         var i, source = $(element), count = parseInt(this.query);
         for (i=1; i<count; i++) {
-            source.after(source.clone());
+            var clone=source.clone();
+            source.after(clone);
+	    clone.find('[data-lorem]').lorem();
         }
     };
 
