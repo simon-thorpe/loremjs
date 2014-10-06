@@ -117,6 +117,12 @@ var Lorem;
         if (element == null)
             return lorem;
     };
+    Lorem.prototype.createClone = function(element) {
+        var i, source = $(element), count = parseInt(this.query);
+        for (i=1; i<count; i++) {
+            source.after(source.clone());
+        }
+    };
 
     //Register as jQuery
     if (typeof jQuery != 'undefined') {
@@ -127,7 +133,12 @@ var Lorem;
                     lorem.type = $(this).is('img') ? Lorem.IMAGE : Lorem.TEXT;
                     //data-lorem can be taken with data function (thanks to http://forrst.com/people/webking)
                     lorem.query = $(this).data('lorem');
-                    lorem.createLorem(this);
+
+                    if(/^[0-9]+$/.test(lorem.query)){
+                        lorem.createClone(this);
+                    }else{
+                        lorem.createLorem(this);
+                    }
                 })
             };
 
